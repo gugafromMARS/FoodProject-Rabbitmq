@@ -6,16 +6,13 @@ import gsc.projects.usersservice.dto.UserCreateDto;
 import gsc.projects.usersservice.dto.UserDto;
 import gsc.projects.usersservice.dto.UserUpdateDto;
 import gsc.projects.usersservice.model.User;
-import gsc.projects.usersservice.model.UserLocation;
 import gsc.projects.usersservice.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -73,18 +70,4 @@ public class UserServiceImp {
         return userConverter.toDto(existingUser);
     }
 
-    public List<Object> getRestaurantByLocation(UserLocation userLocation) {
-        String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" +
-                "?keyword=restaurant" +
-                "&location=" + userLocation.getLatitude() + "%" + userLocation.getLongitude() +
-                "&radius=1000" +
-                "&type=restaurant" +
-                "&key=AIzaSyBUHH3j33tRkQNKmf36P-HnxkglCpZ9yXg";
-        RestTemplate restTemplate = new RestTemplate();
-        Object[] restaurants = restTemplate.getForObject(url, Object[].class);
-        if(restaurants == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurants at this location in a radius of 10km not found");
-        }
-        return Arrays.asList(restaurants);
-    }
 }
