@@ -6,13 +6,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RestaurantCreateDto {
+public class FoodCreateDto {
 
     private String name;
-
-    private String restaurantEmail;
-
-    private String address;
-
-    private MenuCreateDto menu;
+    private double price;
 }

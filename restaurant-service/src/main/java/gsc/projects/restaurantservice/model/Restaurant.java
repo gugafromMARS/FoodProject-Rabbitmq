@@ -6,9 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.logging.log4j.util.Strings;
-
-import java.util.List;
 
 @Entity
 @Table(name = "restaurant")
@@ -28,8 +25,46 @@ public class Restaurant {
 
     private String address;
 
-    @ManyToOne
-    private Menu menu;
 
+    //EMBEDDED ou ELEMENTAL collectioon para nao ter de estar a fazer entidades.
+    @ManyToOne
+    private RestaurantMenu restaurantMenu;
+
+    public static RestaurantBuilder builder(){
+        return new RestaurantBuilder();
+    }
+
+    public static class RestaurantBuilder {
+
+        private final Restaurant restaurant;
+
+        public RestaurantBuilder() {
+            this.restaurant = new Restaurant();
+        }
+
+        public RestaurantBuilder withName(String name){
+            restaurant.setName(name);
+            return this;
+        }
+
+        public RestaurantBuilder withEmail(String email){
+            restaurant.setRestaurantEmail(email);
+            return this;
+        }
+
+        public RestaurantBuilder withAddress(String address){
+            restaurant.setAddress(address);
+            return this;
+        }
+
+        public RestaurantBuilder withMenu(RestaurantMenu restaurantMenu){
+            restaurant.setRestaurantMenu(restaurantMenu);
+            return this;
+        }
+
+        public Restaurant build(){
+            return restaurant;
+        }
+    }
 
 }
