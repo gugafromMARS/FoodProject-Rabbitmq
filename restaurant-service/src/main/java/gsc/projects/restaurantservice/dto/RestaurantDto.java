@@ -1,9 +1,10 @@
 package gsc.projects.restaurantservice.dto;
 
-import gsc.projects.restaurantservice.model.RestaurantMenu;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Map;
 
 
 @Getter
@@ -15,5 +16,5 @@ public class RestaurantDto {
     private String name;
     private String restaurantEmail;
     private String address;
-    private RestaurantMenu restaurantMenu;
+    private Map<String, Double> menu;
 }

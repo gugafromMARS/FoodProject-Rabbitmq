@@ -4,6 +4,8 @@ package gsc.projects.restaurantservice.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
+
 @Getter
 @Setter
 public class RestaurantCreateDto {
@@ -14,5 +16,5 @@ public class RestaurantCreateDto {
 
     private String address;
 
-    private MenuCreateDto menu;
+    private Map<String, Double> menu;
 }

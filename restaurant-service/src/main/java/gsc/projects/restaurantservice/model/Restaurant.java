@@ -7,6 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 @Entity
 @Table(name = "restaurant")
 @Getter
@@ -25,10 +29,8 @@ public class Restaurant {
 
     private String address;
 
-
-    //EMBEDDED ou ELEMENTAL collectioon para nao ter de estar a fazer entidades.
-    @ManyToOne
-    private RestaurantMenu restaurantMenu;
+    @ElementCollection
+    private Map<String, Double> menu;
 
     public static RestaurantBuilder builder(){
         return new RestaurantBuilder();
@@ -57,8 +59,8 @@ public class Restaurant {
             return this;
         }
 
-        public RestaurantBuilder withMenu(RestaurantMenu restaurantMenu){
-            restaurant.setRestaurantMenu(restaurantMenu);
+        public RestaurantBuilder withMenu(Map<String, Double> menu){
+            restaurant.setMenu(menu);
             return this;
         }
 
