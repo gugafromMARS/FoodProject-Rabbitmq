@@ -28,10 +28,10 @@ public class RestaurantConverter {
 
     public Restaurant fromCreateDto(RestaurantCreateDto restaurantCreateDto){
         Map<String, Double> foods = restaurantCreateDto.getMenu().entrySet().stream()
-                .collect(Collectors.toMap(entry -> entry.getKey().toUpperCase(), entry -> entry.getValue()));
+                .collect(Collectors.toMap(entry -> entry.getKey().toUpperCase().trim(), entry -> entry.getValue()));
 
         return Restaurant.builder()
-                .withName(restaurantCreateDto.getName())
+                .withName(restaurantCreateDto.getName().toUpperCase().trim())
                 .withEmail(restaurantCreateDto.getRestaurantEmail())
                 .withAddress(restaurantCreateDto.getAddress())
                 .withMenu(foods)
