@@ -7,10 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/restaurant")
@@ -24,4 +21,13 @@ public class RestaurantController {
         return new ResponseEntity<>(restaurantServiceImp.createRestaurant(restaurantCreateDto), HttpStatus.CREATED);
     }
 
+    @GetMapping()
+    public ResponseEntity<?> getRestaurant(@RequestParam ("name") String name){
+        return ResponseEntity.ok(restaurantServiceImp.getByName(name));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAll(){
+        return ResponseEntity.ok(restaurantServiceImp.getAllRestaurants());
+    }
 }
