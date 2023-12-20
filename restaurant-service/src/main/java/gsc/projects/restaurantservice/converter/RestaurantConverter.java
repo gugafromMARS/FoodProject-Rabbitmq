@@ -3,22 +3,18 @@ package gsc.projects.restaurantservice.converter;
 
 import gsc.projects.restaurantservice.dto.RestaurantCreateDto;
 import gsc.projects.restaurantservice.dto.RestaurantDto;
-import gsc.projects.restaurantservice.model.Food;
 import gsc.projects.restaurantservice.model.Restaurant;
-import gsc.projects.restaurantservice.model.RestaurantMenu;
-import gsc.projects.restaurantservice.repository.FoodRepository;
-import gsc.projects.restaurantservice.repository.MenuRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
 public class RestaurantConverter {
 
-    private MenuConverter menuConverter;
-    private MenuRepository menuRepository;
 
     public RestaurantDto toDto(Restaurant restaurant){
         return RestaurantDto.builder()
@@ -26,19 +22,19 @@ public class RestaurantConverter {
                 .name(restaurant.getName())
                 .restaurantEmail(restaurant.getRestaurantEmail())
                 .address(restaurant.getAddress())
-                .restaurantMenu(restaurant.getRestaurantMenu())
+                .menu(restaurant.getMenu())
                 .build();
     }
 
     public Restaurant fromCreateDto(RestaurantCreateDto restaurantCreateDto){
-        RestaurantMenu restaurantMenu = menuConverter.fromCreateDto(restaurantCreateDto.getMenu());
-        menuRepository.save(restaurantMenu);
+        Map<String, Double> foods = restaurantCreateDto.getMenu().entrySet().stream()
+                .collect(Collectors.toMap(entry -> entry.getKey().toUpperCase(), entry -> entry.getValue()));
 
         return Restaurant.builder()
                 .withName(restaurantCreateDto.getName())
                 .withEmail(restaurantCreateDto.getRestaurantEmail())
                 .withAddress(restaurantCreateDto.getAddress())
-                .withMenu(restaurantMenu)
+                .withMenu(foods)
                 .build();
     }
 
