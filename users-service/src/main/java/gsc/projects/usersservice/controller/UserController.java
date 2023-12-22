@@ -19,7 +19,7 @@ public class UserController {
     private final UserServiceImp userServiceImp;
 
     @PostMapping
-    public ResponseEntity<?> create(UserCreateDto userCreateDto){
+    public ResponseEntity<?> create(@RequestBody UserCreateDto userCreateDto){
         return new ResponseEntity<>(userServiceImp.createUser(userCreateDto), HttpStatus.CREATED);
     }
 
@@ -34,7 +34,7 @@ public class UserController {
         return new ResponseEntity<>("User deleted successfully!", HttpStatus.OK);
     }
     @PutMapping("/{userEmail}")
-    public ResponseEntity<?> update(@PathVariable ("userEmail") String userEmail, UserUpdateDto userUpdateDto){
+    public ResponseEntity<?> update(@PathVariable ("userEmail") String userEmail, @RequestBody UserUpdateDto userUpdateDto){
         return ResponseEntity.ok(userServiceImp.updateByEmail(userEmail, userUpdateDto));
     }
 }
