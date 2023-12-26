@@ -1,7 +1,6 @@
 package gsc.projects.orderservice.dto;
 
 
-import jakarta.persistence.ElementCollection;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
