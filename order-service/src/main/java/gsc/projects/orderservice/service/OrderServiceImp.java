@@ -5,6 +5,7 @@ import gsc.projects.orderservice.converter.OrderConverter;
 import gsc.projects.orderservice.dto.OrderCreateDto;
 import gsc.projects.orderservice.dto.OrderDto;
 import gsc.projects.orderservice.model.Order;
+import gsc.projects.orderservice.rabbitmq.producer.OrderProducer;
 import gsc.projects.orderservice.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,11 +21,14 @@ public class OrderServiceImp {
 
     private final OrderConverter orderConverter;
     private final OrderRepository orderRepository;
+    private final OrderProducer orderProducer;
 
     public OrderDto createOrder(OrderCreateDto orderCreateDto) {
        Order newOrder = orderConverter.fromCreateDto(orderCreateDto);
        orderRepository.save(newOrder);
-       return orderConverter.toDto(newOrder);
+       OrderDto orderDto = orderConverter.toDto(newOrder);
+       orderProducer.sendOrder(orderDto);
+       return orderDto;
     }
 
     public OrderDto getOrderByUuid(UUID uuid) {
