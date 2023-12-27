@@ -1,5 +1,4 @@
-package gsc.projects.shipppingservice.rabbit.config;
-
+package gsc.projects.orderservice.rabbitmq.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -10,14 +9,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class RabbitMqConfig {
 
-    @Value("${spring.rabbitmq.exchange}")
-    private String exchange;
-    @Value("${spring.rabbitmq.routing-key}")
+@Configuration
+public class RabbitConfig {
+
+    @Value("${rabbitmq.exchange.name}")
+    private String exchangeName;
+    @Value("${rabbitmq.routing.key}")
     private String routingKey;
-    @Value("${spring.rabbitmq.producer.queue.name}")
+    @Value("${rabbitmq.producer.queue.name}")
     private String queueName;
 
     @Bean
@@ -27,11 +27,11 @@ public class RabbitMqConfig {
 
     @Bean
     public TopicExchange createExchange(){
-        return new TopicExchange(exchange);
+        return new TopicExchange(exchangeName);
     }
 
     @Bean
-    public Binding binding(){
+    public Binding createBinding(){
         return BindingBuilder.bind(createQueue())
                 .to(createExchange())
                 .with(routingKey);

@@ -17,7 +17,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="order-service" options="-parameters" />
-      <module name="restaurant-service" options="" />
+      <module name="restaurant-service" options="-parameters" />
       <module name="shippping-service" options="-parameters" />
       <module name="users-service" options="-parameters" />
     </option>

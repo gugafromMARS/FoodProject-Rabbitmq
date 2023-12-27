@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderProducer {
 
-    @Value("${spring.rabbitmq.exchange.name}")
+    @Value("${rabbitmq.exchange.name}")
     private String exchange;
 
-    @Value("${spring.rabbitmq.routing-key}")
+    @Value("${rabbitmq.routing.key}")
     private String routingKey;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderProducer.class);
