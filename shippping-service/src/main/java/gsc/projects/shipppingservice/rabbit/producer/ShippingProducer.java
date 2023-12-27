@@ -18,7 +18,7 @@ public class ShippingProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    @Value("$(spring.rabbitmq.routing-key)")
+    @Value("${spring.rabbitmq.routing-key}")
     private String routingKey;
     @Value("${spring.rabbitmq.exchange}")
     private String exchange;
