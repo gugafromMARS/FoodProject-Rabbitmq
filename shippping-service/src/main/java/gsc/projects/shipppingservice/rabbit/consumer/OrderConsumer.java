@@ -1,6 +1,6 @@
 package gsc.projects.shipppingservice.rabbit.consumer;
 
-import gsc.projects.shipppingservice.dto.OrderDto;
+import gsc.projects.shipppingservice.dto.OrderEventDto;
 import gsc.projects.shipppingservice.service.ShippingServiceImp;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -17,8 +17,8 @@ public class OrderConsumer {
     private final ShippingServiceImp shippingServiceImp;
 
     @RabbitListener(queues = "${spring.rabbitmq.queue.name}")
-    public void consume(OrderDto orderDto){
-        LOGGER.info(String.format("Order received in Shipping Service -> %s", orderDto.toString()));
-        shippingServiceImp.sendOrderToUser(orderDto);
+    public void consume(OrderEventDto orderEventDto){
+        LOGGER.info(String.format("Order received in Shipping Service -> %s", orderEventDto.toString()));
+        shippingServiceImp.sendOrderToUser(orderEventDto);
     }
 }

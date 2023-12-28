@@ -1,25 +1,24 @@
 package gsc.projects.shipppingservice.converter;
 
 
-import gsc.projects.shipppingservice.dto.OrderDto;
-import gsc.projects.shipppingservice.dto.UserDto;
+import gsc.projects.shipppingservice.dto.OrderEventDto;
 import gsc.projects.shipppingservice.model.ShippingEvent;
 import org.springframework.stereotype.Component;
 
-import java.util.Random;
 import java.util.UUID;
 
 @Component
 public class ShippingConverter {
 
-    public ShippingEvent fromOrder(OrderDto orderDto, UserDto userDto){
+    public ShippingEvent fromOrder(OrderEventDto orderEventDto){
         return ShippingEvent.builder()
-                .uuidOrder(orderDto.getUuidOrder())
+                .uuidOrder(orderEventDto.getUuidOrder())
                 .trackingNumber(UUID.randomUUID())
-                .userName(userDto.getName())
-                .userAddress(userDto.getAddress())
-                .userEmail(userDto.getEmail())
-                .restaurantEmail(orderDto.getRestaurantEmail())
+                .userName(orderEventDto.getUserName())
+                .userAddress(orderEventDto.getUserAddress())
+                .userEmail(orderEventDto.getUserEmail())
+                .restaurantName(orderEventDto.getRestaurantName())
+                .restaurantEmail(orderEventDto.getRestaurantEmail())
                 .build();
     }
 }
