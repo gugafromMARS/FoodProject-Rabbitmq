@@ -120,6 +120,9 @@ public class RestaurantServiceImp {
             }
         }
         restaurantRepository.save(restaurant);
+        if(existingOrder.size() == 0){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order UUID not found");
+        }
         restaurantProducer.sendOrderToShipping(restaurantConverter.fromOrder(existingOrder.get(0)));
     }
 }

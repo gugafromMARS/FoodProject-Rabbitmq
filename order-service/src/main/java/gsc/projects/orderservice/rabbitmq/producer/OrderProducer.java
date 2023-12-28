@@ -26,7 +26,7 @@ public class OrderProducer {
     }
 
     public void sendOrder(OrderEvent orderEvent){
-        LOGGER.info(String.format("Order sent to Shipping Service -> %s", orderEvent.toString()));
+        LOGGER.info(String.format("Order sent to Restaurant Service -> %s", orderEvent.toString()));
         rabbitTemplate.convertAndSend(exchange, routingKey, orderEvent);
     }
 
