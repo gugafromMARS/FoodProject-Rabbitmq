@@ -27,7 +27,7 @@ public class OrderServiceImp {
        Order newOrder = orderConverter.fromCreateDto(orderCreateDto);
        orderRepository.save(newOrder);
        OrderDto orderDto = orderConverter.toDto(newOrder);
-       orderProducer.sendOrder(orderDto);
+       orderProducer.sendOrder(orderConverter.toEvent(newOrder));
        return orderDto;
     }
 

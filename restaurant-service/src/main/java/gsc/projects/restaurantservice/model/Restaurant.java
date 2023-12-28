@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.logging.log4j.util.Strings;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Entity
@@ -36,7 +33,7 @@ public class Restaurant {
     @ElementCollection
     private Map<String, Double> menu;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Order> orderList;
 
     public static RestaurantBuilder builder(){
@@ -68,6 +65,11 @@ public class Restaurant {
 
         public RestaurantBuilder withMenu(Map<String, Double> menu){
             restaurant.setMenu(menu);
+            return this;
+        }
+
+        public RestaurantBuilder withOrderList(){
+            restaurant.setOrderList(new ArrayList<>());
             return this;
         }
 

@@ -14,6 +14,10 @@ public class OrderConverter {
 
     private APIClient apiClient;
 
+    public OrderConverter(APIClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
     public OrderDto toDto(Order order){
         return OrderDto.builder()
                 .id(order.getId())
