@@ -13,9 +13,10 @@ public class ShippingEvent {
     private UUID uuidOrder;
     private UUID trackingNumber;
     private String userName;
-    private String userAddress;
-    private String restaurantEmail;
     private String userEmail;
+    private String userAddress;
+    private String restaurantName;
+    private String restaurantEmail;
 
     @Override
     public String toString() {
@@ -23,9 +24,10 @@ public class ShippingEvent {
                 "uuidOrder=" + uuidOrder +
                 ", trackingNumber=" + trackingNumber +
                 ", userName='" + userName + '\'' +
-                ", userAddress='" + userAddress + '\'' +
-                ", restaurantEmail='" + restaurantEmail + '\'' +
                 ", userEmail='" + userEmail + '\'' +
+                ", userAddress='" + userAddress + '\'' +
+                ", restaurantName='" + restaurantName + '\'' +
+                ", restaurantEmail='" + restaurantEmail + '\'' +
                 '}';
     }
 }
