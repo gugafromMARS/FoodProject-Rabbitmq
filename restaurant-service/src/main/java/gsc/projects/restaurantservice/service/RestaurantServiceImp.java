@@ -5,8 +5,8 @@ import gsc.projects.restaurantservice.converter.RestaurantConverter;
 import gsc.projects.restaurantservice.dto.*;
 import gsc.projects.restaurantservice.model.Order;
 import gsc.projects.restaurantservice.model.Restaurant;
+import gsc.projects.restaurantservice.rabbitmq.producer.RestaurantProducer;
 import gsc.projects.restaurantservice.repository.RestaurantRepository;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -22,6 +22,7 @@ public class RestaurantServiceImp {
 
     private final RestaurantConverter restaurantConverter;
     private final RestaurantRepository restaurantRepository;
+    private final RestaurantProducer restaurantProducer;
 
 
     public Map<String, Double> addOnMenu(Long id, RestaurantUpdateAdd restaurantUpdateAdd) {
@@ -103,7 +104,9 @@ public class RestaurantServiceImp {
     public void updateOrdersList(Long id, UUID orderUUID) {
         Restaurant restaurant = restaurantRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
+        List<Order> existingOrder = restaurant.getOrderList().stream().filter(order -> order.getUuidOrder() == orderUUID).toList();
         restaurant.setOrderList(restaurant.getOrderList().stream().filter(order -> order.getUuidOrder() != orderUUID).toList());
         restaurantRepository.save(restaurant);
+        restaurantProducer.sendOrderToShipping(restaurantConverter.fromOrder(existingOrder.get(0)));
     }
 }

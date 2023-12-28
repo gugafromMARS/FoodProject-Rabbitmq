@@ -28,4 +28,17 @@ public class OrderEventDto {
 
     @ElementCollection
     private Map<String, Double> foodAndQuantity;
+
+    @Override
+    public String toString() {
+        return "OrderEventDto{" +
+                "uuidOrder=" + uuidOrder +
+                ", restaurantName='" + restaurantName + '\'' +
+                ", restaurantEmail='" + restaurantEmail + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userAddress='" + userAddress + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", foodAndQuantity=" + foodAndQuantity +
+                '}';
+    }
 }
