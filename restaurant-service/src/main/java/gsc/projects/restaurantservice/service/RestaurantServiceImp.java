@@ -3,8 +3,10 @@ package gsc.projects.restaurantservice.service;
 
 import gsc.projects.restaurantservice.converter.RestaurantConverter;
 import gsc.projects.restaurantservice.dto.*;
+import gsc.projects.restaurantservice.model.Order;
 import gsc.projects.restaurantservice.model.Restaurant;
 import gsc.projects.restaurantservice.repository.RestaurantRepository;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -19,6 +22,7 @@ public class RestaurantServiceImp {
 
     private final RestaurantConverter restaurantConverter;
     private final RestaurantRepository restaurantRepository;
+
 
     public Map<String, Double> addOnMenu(Long id, RestaurantUpdateAdd restaurantUpdateAdd) {
         Restaurant existingRestaurant = restaurantRepository.findById(id)
@@ -81,5 +85,26 @@ public class RestaurantServiceImp {
         return existingRestaurant.getMenu();
     }
 
+    public void addOrder(OrderEvent orderEvent) {
+        Restaurant restaurant = restaurantRepository.findByRestaurantEmail(orderEvent.getRestaurantEmail());
+        if(restaurant == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found");
+        }
+        Order order = restaurantConverter.fromOrderEvent(orderEvent, restaurant);
+        restaurant.getOrderList().add(order);
+        restaurantRepository.save(restaurant);
+    }
 
+    public List<Order> getAllOrders(Long id) {
+        return restaurantRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"))
+                .getOrderList();
+    }
+
+    public void updateOrdersList(Long id, UUID orderUUID) {
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
+        restaurant.setOrderList(restaurant.getOrderList().stream().filter(order -> order.getUuidOrder() != orderUUID).toList());
+        restaurantRepository.save(restaurant);
+    }
 }

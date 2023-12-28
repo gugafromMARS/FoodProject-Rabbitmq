@@ -1,14 +1,18 @@
 package gsc.projects.restaurantservice.model;
 
 
+import gsc.projects.restaurantservice.dto.OrderEvent;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.logging.log4j.util.Strings;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Entity
@@ -31,6 +35,9 @@ public class Restaurant {
 
     @ElementCollection
     private Map<String, Double> menu;
+
+    @OneToMany
+    private List<Order> orderList;
 
     public static RestaurantBuilder builder(){
         return new RestaurantBuilder();

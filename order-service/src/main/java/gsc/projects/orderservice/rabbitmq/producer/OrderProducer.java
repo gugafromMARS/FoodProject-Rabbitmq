@@ -2,6 +2,7 @@ package gsc.projects.orderservice.rabbitmq.producer;
 
 
 import gsc.projects.orderservice.dto.OrderDto;
+import gsc.projects.orderservice.dto.OrderEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -24,9 +25,9 @@ public class OrderProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void sendOrder(OrderDto orderDto){
-        LOGGER.info(String.format("Order sent to Shipping Service -> %s", orderDto.toString()));
-        rabbitTemplate.convertAndSend(exchange, routingKey, orderDto);
+    public void sendOrder(OrderEvent orderEvent){
+        LOGGER.info(String.format("Order sent to Shipping Service -> %s", orderEvent.toString()));
+        rabbitTemplate.convertAndSend(exchange, routingKey, orderEvent);
     }
 
 }

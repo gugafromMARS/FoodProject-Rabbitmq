@@ -1,8 +1,11 @@
 package gsc.projects.restaurantservice.converter;
 
 
+import gsc.projects.restaurantservice.dto.OrderEvent;
+import gsc.projects.restaurantservice.dto.OrderEventDto;
 import gsc.projects.restaurantservice.dto.RestaurantCreateDto;
 import gsc.projects.restaurantservice.dto.RestaurantDto;
+import gsc.projects.restaurantservice.model.Order;
 import gsc.projects.restaurantservice.model.Restaurant;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -35,6 +38,29 @@ public class RestaurantConverter {
                 .withEmail(restaurantCreateDto.getRestaurantEmail())
                 .withAddress(restaurantCreateDto.getAddress())
                 .withMenu(foods)
+                .build();
+    }
+
+    public Order fromOrderEvent(OrderEvent orderEvent, Restaurant restaurant){
+        return Order.builder()
+                .uuidOrder(orderEvent.getUuidOrder())
+                .userName(orderEvent.getUserName())
+                .userAddress(orderEvent.getUserAddress())
+                .userEmail(orderEvent.getUserEmail())
+                .foodAndQuantity(orderEvent.getFoodAndQuantity())
+                .restaurant(restaurant)
+                .build();
+    }
+
+    public OrderEventDto fromOrder(Order order){
+        return OrderEventDto.builder()
+                .uuidOrder(order.getUuidOrder())
+                .restaurantName(order.getRestaurant().getName())
+                .restaurantEmail(order.getRestaurant().getRestaurantEmail())
+                .userName(order.getUserName())
+                .userAddress(order.getUserAddress())
+                .userEmail(order.getUserEmail())
+                .foodAndQuantity(order.getFoodAndQuantity())
                 .build();
     }
 

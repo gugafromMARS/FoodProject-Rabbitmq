@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/restaurant")
 @AllArgsConstructor
@@ -51,4 +53,15 @@ public class RestaurantController {
     public ResponseEntity<?> updateEmail(@PathVariable("id") Long id, @RequestBody RestaurantUpdateEmail restaurantUpdateEmail){
         return ResponseEntity.ok(restaurantServiceImp.updateRestaurantEmail(id, restaurantUpdateEmail));
     }
+
+    @GetMapping("/{id}/order/{orderUUID}")
+    public ResponseEntity<?> updateOrders(@PathVariable ("id") Long id, @PathVariable ("orderUUID") UUID orderUUID){
+        restaurantServiceImp.updateOrdersList(id, orderUUID);
+        return ResponseEntity.ok("Order successfully deleted from list");
+    }
+    @GetMapping("/{id}/orders")
+    public ResponseEntity<?> getOrders(@PathVariable ("id") Long id){
+        return ResponseEntity.ok(restaurantServiceImp.getAllOrders(id));
+    }
+
 }

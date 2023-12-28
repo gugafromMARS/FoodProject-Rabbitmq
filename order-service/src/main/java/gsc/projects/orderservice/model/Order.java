@@ -31,7 +31,7 @@ public class Order {
     @ElementCollection
     private Map<String, Double> foodAndQuantity;
 
-    public static OrderBuilder build(){
+    public static OrderBuilder builder(){
         return new OrderBuilder();
     }
 
