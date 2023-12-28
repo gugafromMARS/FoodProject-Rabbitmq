@@ -94,7 +94,6 @@ public class RestaurantServiceImp {
         restaurant.getOrderList().add(order);
         restaurantRepository.save(restaurant);
     }
-
     public List<Order> getAllOrders(Long id) {
         return restaurantRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"))
