@@ -65,6 +65,7 @@ Summary of api possibilities in all microservices.
 * **Get User by email**
 * **Delete User**
 * **Update User**
+  
 Update user email or user address.
 
 ### Orders Service
@@ -74,6 +75,7 @@ Update user email or user address.
 
 ### Restaurants Service
 * **Create Restaurant**
+ 
   Restaurant name, email, address and menu (food and the respetive price).
 * **Get all Restaurants**
 * **Get Restaurant by name**
@@ -82,10 +84,12 @@ Update user email or user address.
 * **Update Restaurant menu (remove item)**
 * **Update Restaurant menu (add item)**
 * **Update Restaurant orders list (Ready to go)**
+  
   This endpoint when the order received from order service, restaurant as soon as order is ready to go, this endpoint is for remove the order from list and send a message for restaurant queue for shipping consumer receive the info.
 * **Get all orders to do from a Restaurant (in that momment)**
 
 ### Shipping Service
+
 Have a consumer in restaurant queue, when the order is ready and when is going to make the delivery it sends a message for the shipping queue and user consumer receive it.
 
 ## Authors
