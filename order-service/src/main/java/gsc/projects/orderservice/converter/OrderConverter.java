@@ -7,6 +7,7 @@ import gsc.projects.orderservice.dto.OrderEvent;
 import gsc.projects.orderservice.dto.UserDto;
 import gsc.projects.orderservice.model.Order;
 import gsc.projects.orderservice.service.APIClient;
+import org.springframework.retry.annotation.CircuitBreaker;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -37,6 +38,7 @@ public class OrderConverter {
                 .withFoodAndQuantity(orderCreateDto.getFoodAndQuantity())
                 .build();
     }
+
 
     public OrderEvent toEvent(Order order){
         UserDto userDto = apiClient.getUser(order.getUserEmail());

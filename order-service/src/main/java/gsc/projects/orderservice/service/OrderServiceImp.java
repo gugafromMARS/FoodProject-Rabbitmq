@@ -9,6 +9,7 @@ import gsc.projects.orderservice.rabbitmq.producer.OrderProducer;
 import gsc.projects.orderservice.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.retry.annotation.CircuitBreaker;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -38,7 +39,6 @@ public class OrderServiceImp {
         }
         return orderConverter.toDto(existingOrder);
     }
-
 
     public List<OrderDto> getAllOrders(String userEmail) {
         return orderRepository.findByUserEmail(userEmail).stream()
