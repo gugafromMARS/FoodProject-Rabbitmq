@@ -60,19 +60,19 @@ docker run -d -p 3308:3306 --name restaurant_orders_db -v $(pwd)/restaurantorder
 
 Summary of api possibilities in all microservices.
 
-###Users Service
+### Users Service
 * **Create User**
 * **Get User by email**
 * **Delete User**
 * **Update User**
 Update user email or user address.
 
-###Orders Service
+### Orders Service
 * **Create Order**
 * **Get Order By UUID**
 * **Get All Orders from user email**
 
-###Restaurants Service
+### Restaurants Service
 * **Create Restaurant**
   Restaurant name, email, address and menu (food and the respetive price).
 * **Get all Restaurants**
@@ -85,7 +85,7 @@ Update user email or user address.
   This endpoint when the order received from order service, restaurant as soon as order is ready to go, this endpoint is for remove the order from list and send a message for restaurant queue for shipping consumer receive the info.
 * **Get all orders to do from a Restaurant (in that momment)**
 
-###Shipping Service
+### Shipping Service
 Have a consumer in restaurant queue, when the order is ready and when is going to make the delivery it sends a message for the shipping queue and user consumer receive it.
 
 ## Authors
