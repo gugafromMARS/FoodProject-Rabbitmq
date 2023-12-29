@@ -32,7 +32,8 @@ Services used.
 ## Getting started
 
 1- Go to Docker Hub choose RabbitMQ version and pull the image in your terminal
-![Docker Hub - RabbitMq](https://hub.docker.com/_/rabbitmq)
+
+[Docker Hub - RabbitMq](https://hub.docker.com/_/rabbitmq)
 
 ```shell script
 docker pull {YOUR RABBITMQ VERSION}
