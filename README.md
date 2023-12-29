@@ -13,7 +13,8 @@ restaurant queue for any shipping consumer receives and make the distribution, s
 
 ## Architecture
 
-![ArchitectureImg](https://github.com/gugafromMARS/FoodProject-Rabbitmq/assets/116969206/827a9a8d-69a0-4ce9-a8a9-9580af205437)
+![ArchitectureImg](https://github.com/gugafromMARS/FoodProject-Rabbitmq/assets/116969206/e151066a-873d-4eec-927a-04e5afeb08f8)
+
 
 ## Technology
 
