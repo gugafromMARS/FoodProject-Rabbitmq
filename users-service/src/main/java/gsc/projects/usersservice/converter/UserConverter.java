@@ -12,6 +12,7 @@ public class UserConverter {
 
     public UserDto toDto(User user){
         return UserDto.builder()
+                .id(user.getId())
                 .name(user.getName())
                 .age(user.getAge())
                 .email(user.getEmail())
