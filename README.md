@@ -96,6 +96,13 @@ Update user email or user address.
 
 Have a consumer in restaurant queue, when the order is ready and when is going to make the delivery it sends a message for the shipping queue and user consumer receive it.
 
+## Tests
+
+I made some integration controller tests and service unit tests for all controllers, using :
+
+* Mockito
+* Junit5
+
 ## Authors
 
 **gugafromMars**
